@@ -179,7 +179,7 @@ compare_event:
   cmp [eax+1C],A7DAFE1E //Smoky Mountain Rev B
   je event_6
   pop eax
-  mov [time+10],0
+  mov [time+14],0
 
 code:
   movq xmm0,[eax]
