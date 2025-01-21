@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<CheatTable CheatEngineTableVersion="45">
+<CheatTable CheatEngineTableVersion="46">
   <CheatEntries>
-    <CheatEntry>
-      <ID>436</ID>
-      <Description>"Car Changer by Enksx1"</Description>
-      <ShowAsHex>1</ShowAsHex>
-      <ShowAsSigned>0</ShowAsSigned>
-      <VariableType>Array of byte</VariableType>
-      <ByteLength>4</ByteLength>
-      <Address>"Need for Speed The Run.exe"+023B8D58</Address>
-      <Offsets>
-        <Offset>3C8</Offset>
-      </Offsets>
-    </CheatEntry>
     <CheatEntry>
       <ID>866</ID>
       <Description>"THE SUPERCAR RUN"</Description>
@@ -20,22 +8,82 @@
       <GroupHeader>1</GroupHeader>
       <Hotkeys>
         <Hotkey>
-          <Action>Toggle Activation</Action>
+          <Action>Activate</Action>
           <Keys>
             <Key>123</Key>
           </Keys>
+	  <Description>Activate mod</Description>
           <ID>0</ID>
         </Hotkey>
       </Hotkeys>
       <CheatEntries>
+        <CheatEntry>
+          <ID>1425</ID>
+          <Description>"Difficulty Check"</Description>
+          <Options moHideChildren="1"/>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+
+aobscanmodule(diff_check,Need For Speed The Run.exe,8B B0 38 81 06 00) // should be unique
+alloc(difficulty,$4)
+
+difficulty:
+  dd 0
+
+registersymbol(difficulty)
+
+alloc(newmem,$20)
+label(code)
+label(return)
+/*
+0 - easy
+1 - normal
+2 - hard
+3 - extreme
+*/
+
+newmem:
+  mov esi,[eax+00068138]
+  mov [difficulty],esi
+
+code:
+  jmp return
+
+diff_check:
+  jmp newmem
+  nop
+return:
+registersymbol(diff_check)
+
+[DISABLE]
+
+diff_check:
+  db 8B B0 38 81 06 00
+
+dealloc(newmem)
+dealloc(difficulty)
+unregistersymbol(diff_check)
+unregistersymbol(difficulty)
+
+</AssemblerScript>
+          <CheatEntries>
+            <CheatEntry>
+              <ID>1422</ID>
+              <Description>"Difficulty"</Description>
+              <ShowAsSigned>0</ShowAsSigned>
+              <VariableType>4 Bytes</VariableType>
+              <Address>difficulty</Address>
+            </CheatEntry>
+          </CheatEntries>
+        </CheatEntry>
         <CheatEntry>
           <ID>1106</ID>
           <Description>"Story Mode Event Hook"</Description>
           <Options moHideChildren="1"/>
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
-alloc(newmem,200)
-alloc(storyEvent,4)
+alloc(newmem,$50)
+alloc(storyEvent,$4)
 registersymbol(storyEvent)
 label(returnhere)
 label(originalcode)
@@ -88,8 +136,7 @@ mov edx,[edi]
 aobscanmodule(_0_checkpoint_timer,Need For Speed The Run.exe,BC 00 00 00 74 35 8B 54 24 08 56 8B 74 24 08 39 30 75 1C F3 0F 7E 00 66 0F D6 02)
 label(code)
 label(return_0_checkpoint_timer)
-alloc(event_1,$500)
-alloc(time,$24)
+alloc(time,$18)
 
 time:
   dd 0
@@ -100,9 +147,26 @@ time:
   dd 0
 
 registersymbol(time)
+alloc(event_1,$1000)
 
 event_1:
   pop eax
+  cmp [difficulty],3
+  je extreme_1
+  cmp [difficulty],2
+  je hard_1
+  cmp [difficulty],1
+  je normal_1
+//easy difficulty
+  mov [eax+4],(float)38
+  mov [time],(float)31
+  mov [time+4],(float)42
+  mov [time+8],(float)31
+  mov [time+C],(float)31
+  mov [time+14],1
+  jmp code
+
+extreme_1:
   mov [eax+4],(float)28
   mov [time],(float)21
   mov [time+4],(float)32
@@ -111,8 +175,42 @@ event_1:
   mov [time+14],1
   jmp code
 
+hard_1:
+  mov [eax+4],(float)30
+  mov [time],(float)23
+  mov [time+4],(float)34
+  mov [time+8],(float)23
+  mov [time+C],(float)23
+  mov [time+14],1
+  jmp code
+
+normal_1:
+  mov [eax+4],(float)33
+  mov [time],(float)26
+  mov [time+4],(float)37
+  mov [time+8],(float)26
+  mov [time+C],(float)26
+  mov [time+14],1
+  jmp code
+
 event_2:
   pop eax
+  cmp [difficulty],3
+  je extreme_2
+  cmp [difficulty],2
+  je hard_2
+  cmp [difficulty],1
+  je normal_2
+//easy difficulty
+  mov [eax+4],(float)32
+  mov [time],(float)37
+  mov [time+4],(float)31
+  mov [time+8],(float)29
+  mov [time+C],(float)27
+  mov [time+14],1
+  jmp code
+
+extreme_2:
   mov [eax+4],(float)22
   mov [time],(float)27
   mov [time+4],(float)21
@@ -121,8 +219,41 @@ event_2:
   mov [time+14],1
   jmp code
 
+hard_2:
+  mov [eax+4],(float)24
+  mov [time],(float)29
+  mov [time+4],(float)23
+  mov [time+8],(float)21
+  mov [time+C],(float)19
+  mov [time+14],1
+  jmp code
+
+normal_2:
+  mov [eax+4],(float)27
+  mov [time],(float)32
+  mov [time+4],(float)26
+  mov [time+8],(float)24
+  mov [time+C],(float)22
+  mov [time+14],1
+  jmp code
+
 event_3:
   pop eax
+  cmp [difficulty],3
+  je extreme_3
+  cmp [difficulty],2
+  je hard_3
+  cmp [difficulty],1
+  je normal_3
+//easy difficulty
+  mov [eax+4],(float)34
+  mov [time],(float)37
+  mov [time+4],(float)36
+  mov [time+8],(float)27
+  mov [time+14],1
+  jmp code
+
+extreme_3:
   mov [eax+4],(float)24
   mov [time],(float)27
   mov [time+4],(float)26
@@ -130,8 +261,41 @@ event_3:
   mov [time+14],1
   jmp code
 
+hard_3:
+  mov [eax+4],(float)26
+  mov [time],(float)29
+  mov [time+4],(float)28
+  mov [time+8],(float)19
+  mov [time+14],1
+  jmp code
+
+normal_3:
+  mov [eax+4],(float)29
+  mov [time],(float)32
+  mov [time+4],(float)31
+  mov [time+8],(float)22
+  mov [time+14],1
+  jmp code
+
 event_4:
   pop eax
+  cmp [difficulty],3
+  je extreme_4
+  cmp [difficulty],2
+  je hard_4
+  cmp [difficulty],1
+  je normal_4
+//easy difficulty
+  mov [eax+4],(float)33
+  mov [time],(float)32
+  mov [time+4],(float)34
+  mov [time+8],(float)33
+  mov [time+C],(float)33
+  mov [time+10],(float)29
+  mov [time+14],1
+  jmp code
+
+extreme_4:
   mov [eax+4],(float)23
   mov [time],(float)22
   mov [time+4],(float)24
@@ -141,8 +305,44 @@ event_4:
   mov [time+14],1
   jmp code
 
+hard_4:
+  mov [eax+4],(float)25
+  mov [time],(float)24
+  mov [time+4],(float)26
+  mov [time+8],(float)25
+  mov [time+C],(float)25
+  mov [time+10],(float)21
+  mov [time+14],1
+  jmp code
+
+normal_4:
+  mov [eax+4],(float)28
+  mov [time],(float)27
+  mov [time+4],(float)29
+  mov [time+8],(float)28
+  mov [time+C],(float)28
+  mov [time+10],(float)24
+  mov [time+14],1
+  jmp code
+
 event_5:
   pop eax
+  cmp [difficulty],3
+  je extreme_5
+  cmp [difficulty],2
+  je hard_5
+  cmp [difficulty],1
+  je normal_5
+//easy difficulty
+  mov [eax+4],(float)49
+  mov [time],(float)39
+  mov [time+4],(float)32
+  mov [time+8],(float)34
+  mov [time+C],(float)38
+  mov [time+14],1
+  jmp code
+
+extreme_5:
   mov [eax+4],(float)39
   mov [time],(float)29
   mov [time+4],(float)22
@@ -151,13 +351,65 @@ event_5:
   mov [time+14],1
   jmp code
 
+hard_5:
+  mov [eax+4],(float)41
+  mov [time],(float)31
+  mov [time+4],(float)24
+  mov [time+8],(float)26
+  mov [time+C],(float)30
+  mov [time+14],1
+  jmp code
+
+normal_5:
+  mov [eax+4],(float)44
+  mov [time],(float)34
+  mov [time+4],(float)27
+  mov [time+8],(float)29
+  mov [time+C],(float)33
+  mov [time+14],1
+  jmp code
+
 event_6:
   pop eax
+  cmp [difficulty],3
+  je extreme_6
+  cmp [difficulty],2
+  je hard_6
+  cmp [difficulty],1
+  je normal_6
+//easy difficulty
+  mov [eax+4],(float)45
+  mov [time],(float)30
+  mov [time+4],(float)27
+  mov [time+8],(float)28
+  mov [time+C],(float)35
+  mov [time+14],1
+  jmp code
+
+extreme_6:
   mov [eax+4],(float)35
   mov [time],(float)20
   mov [time+4],(float)17
   mov [time+8],(float)18
   mov [time+C],(float)25
+  mov [time+14],1
+  jmp code
+
+hard_6:
+  mov [eax+4],(float)37
+  mov [time],(float)22
+  mov [time+4],(float)19
+  mov [time+8],(float)20
+  mov [time+C],(float)27
+  mov [time+14],1
+  jmp code
+
+normal_6:
+  mov [eax+4],(float)40
+  mov [time],(float)25
+  mov [time+4],(float)22
+  mov [time+8],(float)23
+  mov [time+C],(float)30
   mov [time+14],1
   jmp code
 
@@ -207,7 +459,7 @@ unregistersymbol(_0_checkpoint_timer)
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
 aobscanmodule(time_crack,Need For Speed The Run.exe,F3 0F 10 44 24 40 55)
-alloc(change_time,100)
+alloc(change_time,50)
 label(original_code)
 label(return_time_crack)
 
@@ -5309,62 +5561,9 @@ unlock_all_cars:
 
 unregistersymbol(unlock_all_cars)
 dealloc(newmem)
-</AssemblerScript>
-        </CheatEntry>
-      </CheatEntries>
-    </CheatEntry>
-  </CheatEntries>
-  <CheatCodes>
-    <CodeEntry>
-      <Description>Change of call "Need For Speed The Run.exe"+453400</Description>
-      <AddressString>Need For Speed The Run.exe+48CAF4</AddressString>
-      <Before>
-        <Byte>01</Byte>
-        <Byte>51</Byte>
-        <Byte>52</Byte>
-        <Byte>8B</Byte>
-        <Byte>CF</Byte>
-      </Before>
-      <Actual>
-        <Byte>E8</Byte>
-        <Byte>07</Byte>
-        <Byte>69</Byte>
-        <Byte>FC</Byte>
-        <Byte>FF</Byte>
-      </Actual>
-      <After>
-        <Byte>8D</Byte>
-        <Byte>4C</Byte>
-        <Byte>24</Byte>
-        <Byte>2C</Byte>
-        <Byte>E8</Byte>
-      </After>
-    </CodeEntry>
-  </CheatCodes>
-  <UserdefinedSymbols/>
-  <LuaScript>--TRAINERGENERATORSTART--
---This is autogenerated code. Changing code in this block will
---get erased and rewritten if you regenerate the trainer code
-
---Uncomment the following line if this is a Cheat Table format trainer and you don't want CE to show (Tip, save as .CETRAINER alternatively)
---hideAllCEWindows()
-
-RequiredCEVersion=7.5
-if (getCEVersion==nil) or (getCEVersion()&lt;RequiredCEVersion) then
-  messageDialog('Please install Cheat Engine '..RequiredCEVersion, mtError, mbOK)
-  closeCE()
-end
-
-getAutoAttachList().add("Need For Speed The Run.exe")
-gPlaySoundOnAction=false
-CETrainer_1.fixDPI() --remove this if you have already taken care of DPI issues yourself
-CETrainer_1.show()
-function CloseClick()
-  --called by the close button onClick event, and when closing the form
-  closeCE()
-  return caFree --onClick doesn't care, but onClose would like a result
-end
-
---TRAINERGENERATORSTOP--
-</LuaScript>
+	       </AssemblerScript>
+      	    </CheatEntry>
+         </CheatEntries>
+      </CheatEntry>
+   </CheatEntries>
 </CheatTable>
