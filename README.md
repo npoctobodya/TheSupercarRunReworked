@@ -9,3 +9,8 @@ Some of main features:
 - Fixed challenge series car swap, now it's not affected at all
 - Fixed main menu section 'VIEW CARS' car swap, now it's not affected at all
 - Fixed some translations for russian version
+
+Use:
+- Launch the game, then launch mod
+- Press F12 (window will lag for a few seconds)
+- Play
