@@ -3,8 +3,8 @@
   <CheatEntries>
     <CheatEntry>
       <ID>866</ID>
-      <Description>"THE SUPERCAR RUN"</Description>
-      <Options moActivateChildrenAsWell="1" moDeactivateChildrenAsWell="1"/>
+      <Description>"THE SUPERCAR RUN REWORKED"</Description>
+      <Options moActivateChildrenAsWell="1"/>
       <GroupHeader>1</GroupHeader>
       <Hotkeys>
         <Hotkey>
@@ -12,7 +12,7 @@
           <Keys>
             <Key>123</Key>
           </Keys>
-	  <Description>Activate mod</Description>
+          <Description>Activate mod</Description>
           <ID>0</ID>
         </Hotkey>
       </Hotkeys>
@@ -23,9 +23,8 @@
           <Options moHideChildren="1"/>
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
-
-aobscanmodule(diff_check,Need For Speed The Run.exe,8B B0 38 81 06 00) // should be unique
-alloc(difficulty,$4)
+aobscanmodule(diff_check,Need For Speed The Run.exe,8B B0 38 81 06 00)
+alloc(difficulty,4)
 
 difficulty:
   dd 0
@@ -82,8 +81,8 @@ unregistersymbol(difficulty)
           <Options moHideChildren="1"/>
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
-alloc(newmem,$50)
-alloc(storyEvent,$4)
+alloc(newmem,$30)
+alloc(storyEvent,4)
 registersymbol(storyEvent)
 label(returnhere)
 label(originalcode)
@@ -130,287 +129,122 @@ mov edx,[edi]
         </CheatEntry>
         <CheatEntry>
           <ID>1418</ID>
-          <Description>"Event Check"</Description>
+          <Description>"Time Event Check"</Description>
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
-aobscanmodule(_0_checkpoint_timer,Need For Speed The Run.exe,BC 00 00 00 74 35 8B 54 24 08 56 8B 74 24 08 39 30 75 1C F3 0F 7E 00 66 0F D6 02)
+aobscanmodule(event_check,Need For Speed The Run.exe,BC 00 00 00 74 35 8B 54 24 08 56 8B 74 24 08 39 30 75 1C F3 0F 7E 00 66 0F D6 02)
 label(code)
-label(return_0_checkpoint_timer)
+label(return_event_check)
 alloc(time,$18)
 
 time:
-  dd 0
-  dd 0
-  dd 0
-  dd 0
-  dd 0
-  dd 0
+  dd 0 0 0 0 0 0
 
 registersymbol(time)
-alloc(event_1,$1000)
+alloc(event_1,$200)
 
 event_1:
   pop eax
-  cmp [difficulty],3
-  je extreme_1
-  cmp [difficulty],2
-  je hard_1
-  cmp [difficulty],1
-  je normal_1
-//easy difficulty
-  mov [eax+4],(float)38
-  mov [time],(float)31
-  mov [time+4],(float)42
-  mov [time+8],(float)31
-  mov [time+C],(float)31
-  mov [time+14],1
-  jmp code
-
-extreme_1:
-  mov [eax+4],(float)28
-  mov [time],(float)21
-  mov [time+4],(float)32
-  mov [time+8],(float)21
-  mov [time+C],(float)21
-  mov [time+14],1
-  jmp code
-
-hard_1:
-  mov [eax+4],(float)30
-  mov [time],(float)23
-  mov [time+4],(float)34
-  mov [time+8],(float)23
-  mov [time+C],(float)23
-  mov [time+14],1
-  jmp code
-
-normal_1:
-  mov [eax+4],(float)33
-  mov [time],(float)26
-  mov [time+4],(float)37
-  mov [time+8],(float)26
-  mov [time+C],(float)26
-  mov [time+14],1
-  jmp code
+  //easy difficulty times
+  mov [eax+4],(float)36
+  mov [time],(float)29
+  mov [time+4],(float)40
+  mov [time+8],(float)29
+  mov [time+C],(float)29
+  mov [time+14],4
+  cmp [difficulty],0
+  je code
+  jmp mov_times
 
 event_2:
   pop eax
-  cmp [difficulty],3
-  je extreme_2
-  cmp [difficulty],2
-  je hard_2
-  cmp [difficulty],1
-  je normal_2
-//easy difficulty
-  mov [eax+4],(float)32
-  mov [time],(float)37
-  mov [time+4],(float)31
-  mov [time+8],(float)29
-  mov [time+C],(float)27
-  mov [time+14],1
-  jmp code
-
-extreme_2:
-  mov [eax+4],(float)22
-  mov [time],(float)27
-  mov [time+4],(float)21
-  mov [time+8],(float)19
-  mov [time+C],(float)17
-  mov [time+14],1
-  jmp code
-
-hard_2:
-  mov [eax+4],(float)24
-  mov [time],(float)29
-  mov [time+4],(float)23
-  mov [time+8],(float)21
-  mov [time+C],(float)19
-  mov [time+14],1
-  jmp code
-
-normal_2:
-  mov [eax+4],(float)27
-  mov [time],(float)32
-  mov [time+4],(float)26
-  mov [time+8],(float)24
-  mov [time+C],(float)22
-  mov [time+14],1
-  jmp code
+  //easy difficulty times
+  mov [eax+4],(float)30
+  mov [time],(float)35
+  mov [time+4],(float)29
+  mov [time+8],(float)27
+  mov [time+C],(float)25
+  mov [time+14],4
+  cmp [difficulty],0
+  je code
+  jmp mov_times
 
 event_3:
   pop eax
-  cmp [difficulty],3
-  je extreme_3
-  cmp [difficulty],2
-  je hard_3
-  cmp [difficulty],1
-  je normal_3
-//easy difficulty
-  mov [eax+4],(float)34
-  mov [time],(float)37
-  mov [time+4],(float)36
-  mov [time+8],(float)27
-  mov [time+14],1
-  jmp code
-
-extreme_3:
-  mov [eax+4],(float)24
-  mov [time],(float)27
-  mov [time+4],(float)26
-  mov [time+8],(float)17
-  mov [time+14],1
-  jmp code
-
-hard_3:
-  mov [eax+4],(float)26
-  mov [time],(float)29
-  mov [time+4],(float)28
-  mov [time+8],(float)19
-  mov [time+14],1
-  jmp code
-
-normal_3:
-  mov [eax+4],(float)29
-  mov [time],(float)32
-  mov [time+4],(float)31
-  mov [time+8],(float)22
-  mov [time+14],1
-  jmp code
+  //easy difficulty times
+  mov [eax+4],(float)32
+  mov [time],(float)35
+  mov [time+4],(float)34
+  mov [time+8],(float)25
+  mov [time+14],3
+  cmp [difficulty],0
+  je code
+  jmp mov_times
 
 event_4:
   pop eax
-  cmp [difficulty],3
-  je extreme_4
-  cmp [difficulty],2
-  je hard_4
-  cmp [difficulty],1
-  je normal_4
-//easy difficulty
-  mov [eax+4],(float)33
-  mov [time],(float)32
-  mov [time+4],(float)34
-  mov [time+8],(float)33
-  mov [time+C],(float)33
-  mov [time+10],(float)29
-  mov [time+14],1
-  jmp code
-
-extreme_4:
-  mov [eax+4],(float)23
-  mov [time],(float)22
-  mov [time+4],(float)24
-  mov [time+8],(float)23
-  mov [time+C],(float)23
-  mov [time+10],(float)19
-  mov [time+14],1
-  jmp code
-
-hard_4:
-  mov [eax+4],(float)25
-  mov [time],(float)24
-  mov [time+4],(float)26
-  mov [time+8],(float)25
-  mov [time+C],(float)25
-  mov [time+10],(float)21
-  mov [time+14],1
-  jmp code
-
-normal_4:
-  mov [eax+4],(float)28
-  mov [time],(float)27
-  mov [time+4],(float)29
-  mov [time+8],(float)28
-  mov [time+C],(float)28
-  mov [time+10],(float)24
-  mov [time+14],1
-  jmp code
+  //easy difficulty times
+  mov [eax+4],(float)31
+  mov [time],(float)30
+  mov [time+4],(float)32
+  mov [time+8],(float)31
+  mov [time+C],(float)31
+  mov [time+10],(float)27
+  mov [time+14],5
+  cmp [difficulty],0
+  je code
+  jmp mov_times
 
 event_5:
   pop eax
-  cmp [difficulty],3
-  je extreme_5
-  cmp [difficulty],2
-  je hard_5
-  cmp [difficulty],1
-  je normal_5
-//easy difficulty
-  mov [eax+4],(float)49
-  mov [time],(float)39
-  mov [time+4],(float)32
-  mov [time+8],(float)34
-  mov [time+C],(float)38
-  mov [time+14],1
-  jmp code
-
-extreme_5:
-  mov [eax+4],(float)39
-  mov [time],(float)29
-  mov [time+4],(float)22
-  mov [time+8],(float)24
-  mov [time+C],(float)28
-  mov [time+14],1
-  jmp code
-
-hard_5:
-  mov [eax+4],(float)41
-  mov [time],(float)31
-  mov [time+4],(float)24
-  mov [time+8],(float)26
-  mov [time+C],(float)30
-  mov [time+14],1
-  jmp code
-
-normal_5:
-  mov [eax+4],(float)44
-  mov [time],(float)34
-  mov [time+4],(float)27
-  mov [time+8],(float)29
-  mov [time+C],(float)33
-  mov [time+14],1
-  jmp code
+  //easy difficulty times
+  mov [eax+4],(float)47
+  mov [time],(float)37
+  mov [time+4],(float)30
+  mov [time+8],(float)32
+  mov [time+C],(float)36
+  mov [time+14],4
+  cmp [difficulty],0
+  je code
+  jmp mov_times
 
 event_6:
   pop eax
-  cmp [difficulty],3
-  je extreme_6
-  cmp [difficulty],2
-  je hard_6
-  cmp [difficulty],1
-  je normal_6
-//easy difficulty
-  mov [eax+4],(float)45
-  mov [time],(float)30
-  mov [time+4],(float)27
-  mov [time+8],(float)28
-  mov [time+C],(float)35
-  mov [time+14],1
-  jmp code
+  //easy difficulty times
+  mov [eax+4],(float)43
+  mov [time],(float)28
+  mov [time+4],(float)25
+  mov [time+8],(float)26
+  mov [time+C],(float)33
+  mov [time+14],4
+  cmp [difficulty],0
+  je code
 
-extreme_6:
-  mov [eax+4],(float)35
-  mov [time],(float)20
-  mov [time+4],(float)17
-  mov [time+8],(float)18
-  mov [time+C],(float)25
-  mov [time+14],1
-  jmp code
+mov_times:
+  push edx
+  push eax
+  mov eax,2
+  imul [difficulty]
+  add eax,2
+  cvtsi2ss xmm1,eax
+  pop eax
+  pop edx
+  movss xmm0,[eax+4]
+  subss xmm0,xmm1
+  movss [eax+4],xmm0
+  cmp [time+14],5
+  jne mov_4_times
+  movss xmm0,[time+10]
+  subss xmm0,xmm1
+  movss [time+10],xmm0
 
-hard_6:
-  mov [eax+4],(float)37
-  mov [time],(float)22
-  mov [time+4],(float)19
-  mov [time+8],(float)20
-  mov [time+C],(float)27
-  mov [time+14],1
-  jmp code
-
-normal_6:
-  mov [eax+4],(float)40
-  mov [time],(float)25
-  mov [time+4],(float)22
-  mov [time+8],(float)23
-  mov [time+C],(float)30
-  mov [time+14],1
+mov_4_times:
+  pshufd xmm1,xmm1,0
+  movups xmm0,[time]
+  subps xmm0,xmm1
+  movups [time],xmm0
+  xorpd xmm0,xmm0
+  xorpd xmm1,xmm1
   jmp code
 
 compare_event:
@@ -436,21 +270,23 @@ compare_event:
 code:
   movq xmm0,[eax]
   movq [edx],xmm0
-  jmp return_0_checkpoint_timer
+  jmp return_event_check
 
-_0_checkpoint_timer+13:
+event_check+13:
   jmp compare_event
   nop 3
 
-return_0_checkpoint_timer:
-registersymbol(_0_checkpoint_timer)
+return_event_check:
+registersymbol(event_check)
 
 [DISABLE]
-_0_checkpoint_timer+13:
+event_check+13:
   db F3 0F 7E 00 66 0F D6 02
 
 dealloc(event_1)
-unregistersymbol(_0_checkpoint_timer)
+dealloc(time)
+unregistersymbol(time)
+unregistersymbol(event_check)
 </AssemblerScript>
         </CheatEntry>
         <CheatEntry>
@@ -459,7 +295,7 @@ unregistersymbol(_0_checkpoint_timer)
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
 aobscanmodule(time_crack,Need For Speed The Run.exe,F3 0F 10 44 24 40 55)
-alloc(change_time,50)
+alloc(change_time,$30)
 label(original_code)
 label(return_time_crack)
 
@@ -492,18 +328,18 @@ unregistersymbol(time_crack)
         </CheatEntry>
         <CheatEntry>
           <ID>1380</ID>
-          <Description>"Tier 6 Cars"</Description>
-          <Options moManualExpandCollapse="1" moActivateChildrenAsWell="1"/>
+          <Description>"Tier 6 Car Select"</Description>
+          <Options moActivateChildrenAsWell="1"/>
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
-aobscanmodule(check,Need For Speed The Run.exe,85 C0 74 02 89 30 8D)
+aobscanmodule(cars_swap,Need For Speed The Run.exe,85 C0 74 02 89 30 8D)
 registersymbol(carArray)
-alloc(carArray,100)
+alloc(carArray,$58)
 registersymbol(ind)
-alloc(ind,12)
+alloc(ind,8)
 registersymbol(audiarr)
 alloc(audiarr,12)
-alloc(compare,500)
+alloc(compare,$200)
 label(code)
 label(return)
 
@@ -534,7 +370,6 @@ carArray:
 ind:
   dd 0
   dd 0
-  dd 0
 
 audiarr:
   dd 4044360D
@@ -558,925 +393,78 @@ audi_compare:
   jmp ind_compare
 
 audi_car:
-  mov [ind+8],1
-  mov esi,[ind]
-  mov esi,[audiarr+esi]
-  jmp code
+  mov [ind+4],1
+  mov esi,[audiarr+eax]
+  jmp pop_eax
 
 mov_0:
   mov esi,0
-  inc [ind+4]
-  mov [ind+8],0
-  jmp code
+  inc [ind]
+  mov [ind+4],0
+  jmp pop_eax
 
 ind_4_gs:
-  mov [ind+4],0
+  mov [ind],0
 
 gas_station:
-  cmp [ind+4],2
+  cmp [ind],2
   jg ind_4_gs
-  push ebx
-  mov ebx,eax
-  sub ebx,ebp
-  mov [ind],ebx
-  pop ebx
-  sub [ind],40
+  push eax
+  sub eax,ebp
+  sub eax,40
   jmp ind_compare
 
 ind_4:
-  mov [ind+4],0
+  mov [ind],0
 
 garage:
-  cmp [ind+4],2
+  cmp [ind],2
   jg ind_4
-  push ebx
-  mov ebx,eax
-  sub ebx,ebp
-  mov [ind],ebx
-  pop ebx
-  sub [ind],40
-  cmp [ind],0
+  push eax
+  sub eax,ebp
+  sub eax,40
+  cmp eax,0
   je audi_compare
-  cmp [ind],C
+  cmp eax,C
   je audi_compare
-  cmp [ind+8],1
+  cmp [ind+4],1
   je audi_car
 
 ind_compare:
-  cmp [ind],54
+  cmp eax,54
   jg mov_0
+  mov esi,[carArray+eax]
 
-mov_car:
-  mov esi,[ind]
-  mov esi,[carArray+esi]
+pop_eax:
+  pop eax
 
 code:
   mov [eax],esi
   jmp return
 
-check:
+cars_swap:
   jmp compare
   nop
 return:
-registersymbol(check)
+registersymbol(cars_swap)
 
 [DISABLE]
-check:
+cars_swap:
   db 85 C0 74 02 89 30
 
-unregistersymbol(check)
+unregistersymbol(cars_swap)
 unregistersymbol(carArray)
 unregistersymbol(ind)
 dealloc(carArray)
 dealloc(ind)
 dealloc(compare)
 </AssemblerScript>
-          <CheatEntries>
-            <CheatEntry>
-              <ID>1413</ID>
-              <Description>"Text Swap (ru)"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-aobscanmodule(text_change,Need For Speed The Run.exe,89 94 24 8C 09 00 00)
-registersymbol(checkvar)
-alloc(checkvar,8)
-alloc(newmem,200)
-label(code)
-label(return)
-
-checkvar:
-  dd 0
-  dd 0
-
-newmem:
-  push eax
-  push ebx
-  mov ebx,[ebx]
-  cmp [ebx+10],00210020 //SUICIDAL[ !]!!
-  je suicidal
-  cmp [ebx+C],0422042D //ВЫБОР [ЭТ]АПА
-  je title_check
-  cmp [ebx+10],04220421 //БЛИЗКОЕ [СТ]ОЛКНОВЕНИЕ
-  je near_miss
-  cmp [ebx+14],04220421 //ВСТРЕЧНОЕ [СТ]ОЛКНОВЕНИЕ
-  je oncoming_near_miss
-  cmp [ebx+14],043F0022 //Уровень 4 ["п]рокачанная"
-  je story_car_select
-  cmp [checkvar+4],1
-  jne car_swap_check
-
-tier_check:
-  cmp cx,DDD4 //compare needed widget
-  jne car_swap_check
-  cmp [ebx+2A],002E0440 //Класс машины: Любые у[р.]
-  je swap_level2
-  cmp [ebx+34],002E0440 //Класс машины: Любые Audi у[р.]
-  je swap_audi
-
-car_swap_check:
-  mov eax,[ind+4]
-  cmp eax,[checkvar]
-  je code
-  cmp [ebx+E],002E0440 //Любые у[р.]
-  je swap_level
-  cmp [ebx+18],002E0440 //Любые Audi у[р.]
-  je swap_level_audi
-
-code:
-  pop ebx
-  pop eax
-  mov [esp+0000098C],edx
-  jmp return
-
-suicidal:
-  //cmp cx,E270 //using this check change main text only
-  //jne code
-  cmp [ebx+14],00210021 //SUICIDAL ![!!]
-  jne code
-  //САМОУБИЙЦА!!!
-  mov [ebx],04100421    //СА
-  mov [ebx+4],041E041C  //МО
-  mov [ebx+8],04110423  //УБ
-  mov [ebx+C],04190418  //ИЙ
-  mov [ebx+10],04100426 //ЦА
-  mov [ebx+14],00210021 //!!
-  mov [ebx+18],00210021 //!!
-  jmp code
-
-near_miss:
-  //ОПАСНОЕ СБЛИЖЕНИЕ
-  cmp cx,DA14 //compare needed widget
-  jne code
-  mov [ebx],041F041E    //ОП
-  mov [ebx+4],04210410  //АС
-  mov [ebx+8],041E041D  //НО
-  mov [ebx+C],00200415  //[Е ]
-  mov [ebx+10],04110421 //СБ
-  mov [ebx+14],0418041B //ЛИ
-  mov [ebx+18],04150416 //ЖЕ
-  mov [ebx+1C],0418041D //НИ
-  mov [ebx+20],00200415 //[Е ]
-  mov [ebx+24],00200020 //[  ]
-  jmp code
-
-oncoming_near_miss:
-  //ВСТРЕЧНОЕ [СБЛИЖЕНИЕ]
-  cmp cx,DA14 //compare needed widget
-  jne code
-  mov [ebx+14],04110421 //СБ
-  mov [ebx+18],0418041B //ЛИ
-  mov [ebx+1C],04150416 //ЖЕ
-  mov [ebx+20],0418041D //НИ
-  mov [ebx+24],00200415 //[Е ]
-  mov [ebx+28],00200020 //[  ]
-  jmp code
-
-swap_level:
-  mov [ebx+12],00360020
-  mov [checkvar],eax
-  jmp code
-
-swap_level_audi:
-  //Audi, Nissan у. 6
-  mov [ebx],00750041    //Au
-  mov [ebx+4],00690064  //di
-  mov [ebx+8],0020002C  //[, ]
-  mov [ebx+C],0069004E  //Ni
-  mov [ebx+10],00730073 //ss
-  mov [ebx+14],006E0061 //an
-  mov [ebx+18],04430020 //[ у]
-  mov [ebx+1C],0020002E //[. ]
-  mov [ebx+1E],00360020 //[ 6]
-  mov [checkvar],eax
-  jmp code
-
-swap_level2:
-  mov [ebx+2E],00360020
-  jmp code
-
-swap_audi:
-  //Audi, Nissan у. 6
-  mov [ebx+1C],00750041 //Au
-  mov [ebx+20],00690064 //di
-  mov [ebx+24],0020002C //[, ]
-  mov [ebx+28],0069004E //Ni
-  mov [ebx+2C],00730073 //ss
-  mov [ebx+30],006E0061 //an
-  mov [ebx+34],04430020 //[ у]
-  mov [ebx+38],0020002E //[. ]
-  mov [ebx+3A],00360020 //[ 6]
-  jmp code
-
-story_car_select:
-  mov [ebx+10],00200036
-  jmp code
-
-title_check:
-  cmp cx,DA30 //compare needed widget
-  je mov_var_1
-  cmp cx,DB54 //compare needed widget
-  je mov_var_1
-  dec [checkvar+4]
-  jmp car_swap_check
-
-mov_var_1:
-  mov [checkvar+4],2
-  jmp tier_check
-
-text_change:
-  jmp newmem
-  nop 2
-return:
-registersymbol(text_change)
-
-[DISABLE]
-
-text_change:
-  db 89 94 24 8C 09 00 00
-
-unregistersymbol(text_change)
-dealloc(newmem)
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1292</ID>
-              <Description>"Junkyard"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-aobscanmodule(junkyard_event_1_1,Need For Speed The Run.exe,8B 82 68 02 00 00) // should be unique
-alloc(newmem,100)
-
-label(code)
-label(return)
-
-newmem:
-  cmp [edx+00000268],48E0DCCC
-  jne code
-  mov [edx+00000268],4620AE6E
-code:
-  mov eax,[edx+00000268]
-  jmp return
-
-junkyard_event_1_1:
-  jmp newmem
-  nop
-return:
-registersymbol(junkyard_event_1_1)
-
-[DISABLE]
-junkyard_event_1_1:
-  db 8B 82 68 02 00 00
-
-unregistersymbol(junkyard_event_1_1)
-dealloc(newmem)
-
-{
-// ORIGINAL CODE - INJECTION POINT: Need For Speed The Run.exe+E7CEA8
-
-Need For Speed The Run.exe+E7CE7D: E8 2E 43 0A 01        - call "Need For Speed The Run.exe"+1F211B0
-Need For Speed The Run.exe+E7CE82: 8D 4C 24 20           - lea ecx,[esp+20]
-Need For Speed The Run.exe+E7CE86: 8D 86 34 0E 00 00     - lea eax,[esi+00000E34]
-Need For Speed The Run.exe+E7CE8C: 51                    - push ecx
-Need For Speed The Run.exe+E7CE8D: 8B 0D FC 31 8A 02     - mov ecx,["Need For Speed The Run.exe"+24A31FC]
-Need For Speed The Run.exe+E7CE93: 89 44 24 4C           - mov [esp+4C],eax
-Need For Speed The Run.exe+E7CE97: E8 E4 4E 27 FF        - call "Need For Speed The Run.exe"+F1D80
-Need For Speed The Run.exe+E7CE9C: 8D 4C 24 20           - lea ecx,[esp+20]
-Need For Speed The Run.exe+E7CEA0: E8 EB F8 25 FF        - call "Need For Speed The Run.exe"+DC790
-Need For Speed The Run.exe+E7CEA5: 8B 56 14              - mov edx,[esi+14]
-// ---------- INJECTING HERE ----------
-Need For Speed The Run.exe+E7CEA8: 8B 82 68 02 00 00     - mov eax,[edx+00000268]
-// ---------- DONE INJECTING  ----------
-Need For Speed The Run.exe+E7CEAE: 3B C3                 - cmp eax,ebx
-Need For Speed The Run.exe+E7CEB0: 74 11                 - je "Need For Speed The Run.exe"+E7CEC3
-Need For Speed The Run.exe+E7CEB2: 89 86 CC 0E 00 00     - mov [esi+00000ECC],eax
-Need For Speed The Run.exe+E7CEB8: 8B 45 08              - mov eax,[ebp+08]
-Need For Speed The Run.exe+E7CEBB: 8B 08                 - mov ecx,[eax]
-Need For Speed The Run.exe+E7CEBD: 89 8E D0 0E 00 00     - mov [esi+00000ED0],ecx
-Need For Speed The Run.exe+E7CEC3: 38 9F F1 01 00 00     - cmp [edi+000001F1],bl
-Need For Speed The Run.exe+E7CEC9: 74 2C                 - je "Need For Speed The Run.exe"+E7CEF7
-Need For Speed The Run.exe+E7CECB: 83 A6 BC 0E 00 00 F7  - and dword ptr [esi+00000EBC],-09
-Need For Speed The Run.exe+E7CED2: 8B 46 14              - mov eax,[esi+14]
-}
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1293</ID>
-              <Description>"Junkyard 1.2"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>[ENABLE]
-aobscanmodule(junkyard_event_1_2,Need For Speed The Run.exe,8B 81 E0 00 00 00 C3 CC B8) // should be unique
-alloc(newmem,100)
-label(code)
-label(return)
-
-newmem:
-  cmp [ecx+000000E0],48E0DCCC
-  jne code
-  mov [ecx+000000E0],4620AE6E
-
-code:
-  mov eax,[ecx+000000E0]
-  jmp return
-
-junkyard_event_1_2:
-  jmp newmem
-  nop
-return:
-registersymbol(junkyard_event_1_2)
-
-[DISABLE]
-junkyard_event_1_2:
-  db 8B 81 E0 00 00 00
-
-unregistersymbol(junkyard_event_1_2)
-dealloc(newmem)
-
-{
-// ORIGINAL CODE - INJECTION POINT: Need For Speed The Run.exe+FEAFA8
-
-Need For Speed The Run.exe+FEAF8F: CC                 - int 3 
-Need For Speed The Run.exe+FEAF90: A1 30 63 8E 02     - mov eax,["Need For Speed The Run.exe"+24E6330]
-Need For Speed The Run.exe+FEAF95: 8B 50 04           - mov edx,[eax+04]
-Need For Speed The Run.exe+FEAF98: 2B 10              - sub edx,[eax]
-Need For Speed The Run.exe+FEAF9A: 74 0C              - je "Need For Speed The Run.exe"+FEAFA8
-Need For Speed The Run.exe+FEAF9C: 8B 00              - mov eax,[eax]
-Need For Speed The Run.exe+FEAF9E: 50                 - push eax
-Need For Speed The Run.exe+FEAF9F: E8 4C 19 9C FF     - call "Need For Speed The Run.exe"+9AC8F0
-Need For Speed The Run.exe+FEAFA4: 83 C4 04           - add esp,04
-Need For Speed The Run.exe+FEAFA7: C3                 - ret 
-// ---------- INJECTING HERE ----------
-Need For Speed The Run.exe+FEAFA8: 8B 81 E0 00 00 00  - mov eax,[ecx+000000E0]
-// ---------- DONE INJECTING  ----------
-Need For Speed The Run.exe+FEAFAE: C3                 - ret 
-Need For Speed The Run.exe+FEAFAF: CC                 - int 3 
-Need For Speed The Run.exe+FEAFB0: B8 07 00 00 00     - mov eax,00000007
-Need For Speed The Run.exe+FEAFB5: C3                 - ret 
-Need For Speed The Run.exe+FEAFB6: CC                 - int 3 
-Need For Speed The Run.exe+FEAFB7: CC                 - int 3 
-Need For Speed The Run.exe+FEAFB8: CC                 - int 3 
-Need For Speed The Run.exe+FEAFB9: CC                 - int 3 
-Need For Speed The Run.exe+FEAFBA: CC                 - int 3 
-Need For Speed The Run.exe+FEAFBB: CC                 - int 3 
-}
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>862</ID>
-              <Description>"SanFran"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-[ENABLE]
-math.randomseed(os.time())
-print "San Francisco Garage Supercar Car Select Randomizer timer enabled"
-function SanFran()
-    if readPointer("[[[[[027147B0]+344]+24]+4]+38]+0") ~= nil then
-        local lastCarClassID = getAddress("[[[[[027147B0]+344]+24]+4]+38]+0")
-        local lastCarID = lastCarClassID + 0x4
-        if lastCarClassID ~= nil and readInteger(lastCarClassID) == 2580303702 and readInteger(lastCarID) == 1165774027 then
-            first = lastCarClassID + 0x4
-            second = lastCarClassID + 0xC
-            third = lastCarClassID + 0x14
-            fourth = lastCarClassID + 0x1C
-            fifth = lastCarClassID + 0x24
-
-            writeInteger(first,1732803059)
-            writeInteger(second,4150176875)
-            writeInteger(third,1203603962)
-            writeInteger(fourth,3082609147)
-            writeInteger(fifth,893260034)
-        end
-    end
-end
-
-sf = createTimer(nil)
-timer_onTimer(sf,SanFran)
-timer_setInterval(sf, 1000)
-timer_setEnabled(sf, true)
-
-[DISABLE]
-timer_setEnabled(sf, false)
-print "San Francisco Garage Supercar Car Select Randomizer timer disabled"
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>863</ID>
-              <Description>"LasVegas"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-[ENABLE]
-math.randomseed(os.time())
-print "Las Vegas East Supercar Car Select Randomizer timer enabled"
-function LasVegas()
-    if readPointer("[[[[027147B0]+56C]+64]+A0]+0") ~= nil then
-        local lastCarClassID = getAddress("[[[[027147B0]+56C]+64]+A0]+0")
-        local lastCarID = lastCarClassID + 0x4
-        if lastCarClassID ~= nil and readInteger(lastCarClassID) == 2580303702 and readInteger(lastCarID) == 3662254698 then
-            first = lastCarClassID + 0x4
-            second = lastCarClassID + 0xC
-            third = lastCarClassID + 0x14
-
-            writeInteger(first,3882992039)
-            writeInteger(second,2998207530)
-            writeInteger(third,1293973268)
-        end
-    end
-end
-
-lv = createTimer(nil)
-timer_onTimer(lv,LasVegas)
-timer_setInterval(lv, 1000)
-timer_setEnabled(lv, true)
-
-[DISABLE]
-timer_setEnabled(lv, false)
-print "Las Vegas East Supercar Car Select Randomizer timer disabled"
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>864</ID>
-              <Description>"Chicago"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-[ENABLE]
-math.randomseed(os.time())
-print "Chicago Downtown Supercar Car Select Randomizer timer enabled"
-function Chicago()
-if readPointer("[[[[027147B0]+41C]+5C]+A0]+0") ~= nil then
-   local lastCarClassID = getAddress("[[[[027147B0]+41C]+5C]+A0]+0")
-   local lastCarID = lastCarClassID + 0x4
-         if lastCarClassID ~= nil and readInteger(lastCarClassID) == 2580303702 and readInteger(lastCarID) == 470076578 then
-            first = lastCarClassID + 0x4
-            second = lastCarClassID + 0xC
-            third = lastCarClassID + 0x14
-
-            writeInteger(first,1279882972)
-            writeInteger(second,501327745)
-            writeInteger(third,1078212109)
-         end
-   end
-end
-
-cc = createTimer(nil)
-timer_onTimer(cc,Chicago)
-timer_setInterval(cc, 1000)
-timer_setEnabled(cc, true)
-
-[DISABLE]
-timer_setEnabled(cc, false)
-print "Chicago Downtown Supercar Car Select Randomizer timer disabled"
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>865</ID>
-              <Description>"Uri"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-[ENABLE]
-math.randomseed(os.time())
-print "Uri Garage Supercar Car Select Randomizer timer enabled"
-function Uri()
-    if readPointer("[[[[[027147B0]+7A4]+24]+8]+A0]+0") ~= nil then
-        local lastCarClassID = getAddress("[[[[[027147B0]+7A4]+24]+8]+A0]+0")
-        local lastCarID = lastCarClassID + 0x4
-        if lastCarClassID ~= nil and readInteger(lastCarClassID) == 2580303702 and readInteger(lastCarID) == 3362615761 then
-            first = lastCarClassID + 0x4
-            second = lastCarClassID + 0xC
-            third = lastCarClassID + 0x14
-
-            writeInteger(first,2235038457)
-            writeInteger(second,2149624056)
-            writeInteger(third,2196261666)
-        end
-    end
-end
-
-ur = createTimer(nil)
-timer_onTimer(ur,Uri)
-timer_setInterval(ur, 1000)
-timer_setEnabled(ur, true)
-
-[DISABLE]
-timer_setEnabled(ur, false)
-print "Uri Garage Supercar Car Select Randomizer timer disabled"
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>813</ID>
-              <Description>"CALVIN SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "23 8F B9 C8" --3367604003 --mer_sls_amg_10_rival
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-    local bodykit = address + 0x18
-    local spoiler = address + 0x28
-    local exhaust = address + 0x30
-    local hood = address + 0x38
-    local frontrims = address + 0x40
-    local rearrims = address + 0x48
-    local livery = address + 0x50
-    local performance = address + 0x60
-
-    --Variable Declaration
-    local BDK_ID = hexByteString(bodykit)
-    local SPL_ID = hexByteString(spoiler)
-    local EXH_ID = hexByteString(exhaust)
-    local HOD_ID = hexByteString(hood)
-    local FRM_ID = hexByteString(frontrims)
-    local RRM_ID = hexByteString(rearrims)
-    local LIV_ID = hexByteString(livery)
-    local PRF_ID = hexByteString(performance)
-
-    --Custom Values [Comment if not set]
-    --BDK_ID = "4C 35 63 EC"
-    --SPL_ID = "00 00 00 00"
-    --EXH_ID = "00 00 00 00"
-    --HOD_ID = "00 00 00 00"
-    --FRM_ID = "6F 2A 0C 7B"
-    --RRM_ID = "AD 2A 66 76"
-    --LIV_ID = "A7 3D 7F 40"
-    PRF_ID = "B9 D5 89 4C"
-
-    --writeInteger(bodykit,AOBtoDEC(BDK_ID))
-    --writeInteger(spoiler,AOBtoDEC(SPL_ID))
-    --writeInteger(exhaust,AOBtoDEC(EXH_ID))
-    --writeInteger(hood,AOBtoDEC(HOD_ID))
-    --writeInteger(frontrims,AOBtoDEC(FRM_ID))
-    --writeInteger(rearrims,AOBtoDEC(RRM_ID))
-    --writeInteger(livery,AOBtoDEC(LIV_ID))
-    writeInteger(performance,AOBtoDEC(PRF_ID))
-
-    print "Customization Complete!"
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>818</ID>
-              <Description>"CESAR SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "9C B4 8C 1D" --495760540 --che_el_cam_70_pp_rival_1
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-    local bodykit = address + 0x18
-    local spoiler = address + 0x28
-    local exhaust = address + 0x30
-    local hood = address + 0x38
-    local frontrims = address + 0x40
-    local rearrims = address + 0x48
-    local livery = address + 0x50
-    local performance = address + 0x60
-
-    --Variable Declaration
-    local BDK_ID = hexByteString(bodykit)
-    local SPL_ID = hexByteString(spoiler)
-    local EXH_ID = hexByteString(exhaust)
-    local HOD_ID = hexByteString(hood)
-    local FRM_ID = hexByteString(frontrims)
-    local RRM_ID = hexByteString(rearrims)
-    local LIV_ID = hexByteString(livery)
-    local PRF_ID = hexByteString(performance)
-
-    --Custom Values [Comment if not set]
-    --BDK_ID = "8B 37 3A F9"
-    --SPL_ID = "41 87 77 31"
-    --EXH_ID = "4D 94 3E 52"
-    --HOD_ID = "00 00 00 00"
-    --FRM_ID = "24 69 86 BE"
-    --RRM_ID = "E6 68 2C C3"
-    --LIV_ID = "D3 E8 67 10"
-    PRF_ID = "BD 91 44 C5"
-
-    --writeInteger(bodykit,AOBtoDEC(BDK_ID))
-    --writeInteger(spoiler,AOBtoDEC(SPL_ID))
-    --writeInteger(exhaust,AOBtoDEC(EXH_ID))
-    --writeInteger(hood,AOBtoDEC(HOD_ID))
-    --writeInteger(frontrims,AOBtoDEC(FRM_ID))
-    --writeInteger(rearrims,AOBtoDEC(RRM_ID))
-    --writeInteger(livery,AOBtoDEC(LIV_ID))
-    writeInteger(performance,AOBtoDEC(PRF_ID))
-
-    print "Customization Complete!"
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>820</ID>
-              <Description>"CESAR THUG 1 SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "13 8C FE 5C" --1560185875 --che_el_cam_70_pp_rival_2
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-    local bodykit = address + 0x18
-    local spoiler = address + 0x28
-    local exhaust = address + 0x30
-    local hood = address + 0x38
-    local frontrims = address + 0x40
-    local rearrims = address + 0x48
-    local livery = address + 0x50
-    local performance = address + 0x60
-
-    --Variable Declaration
-    local BDK_ID = hexByteString(bodykit)
-    local SPL_ID = hexByteString(spoiler)
-    local EXH_ID = hexByteString(exhaust)
-    local HOD_ID = hexByteString(hood)
-    local FRM_ID = hexByteString(frontrims)
-    local RRM_ID = hexByteString(rearrims)
-    local LIV_ID = hexByteString(livery)
-    local PRF_ID = hexByteString(performance)
-
-    --Custom Values [Comment if not set]
-    --BDK_ID = "8B 37 3A F9"
-    --SPL_ID = "81 58 DD B0"
-    --EXH_ID = "4D 94 3E 52"
-    --HOD_ID = "00 00 00 00"
-    --FRM_ID = "24 FF A1 4C"
-    --RRM_ID = "E6 FE 47 51"
-    --LIV_ID = "C4 34 E3 38"
-    PRF_ID = "BD 91 44 C5"
-
-    --writeInteger(bodykit,AOBtoDEC(BDK_ID))
-    --writeInteger(spoiler,AOBtoDEC(SPL_ID))
-    --writeInteger(exhaust,AOBtoDEC(EXH_ID))
-    --writeInteger(hood,AOBtoDEC(HOD_ID))
-    --writeInteger(frontrims,AOBtoDEC(FRM_ID))
-    --writeInteger(rearrims,AOBtoDEC(RRM_ID))
-    --writeInteger(livery,AOBtoDEC(LIV_ID))
-    writeInteger(performance,AOBtoDEC(PRF_ID))
-
-    print "Customization Complete!"
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>819</ID>
-              <Description>"CESAR THUG 2 SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "7A AE 04 62" --1644473978 --che_el_cam_70_pp_rival_3
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-    local bodykit = address + 0x18
-    local spoiler = address + 0x28
-    local exhaust = address + 0x30
-    local hood = address + 0x38
-    local frontrims = address + 0x40
-    local rearrims = address + 0x48
-    local livery = address + 0x50
-    local performance = address + 0x60
-
-    --Variable Declaration
-    local BDK_ID = hexByteString(bodykit)
-    local SPL_ID = hexByteString(spoiler)
-    local EXH_ID = hexByteString(exhaust)
-    local HOD_ID = hexByteString(hood)
-    local FRM_ID = hexByteString(frontrims)
-    local RRM_ID = hexByteString(rearrims)
-    local LIV_ID = hexByteString(livery)
-    local PRF_ID = hexByteString(performance)
-
-    --Custom Values [Comment if not set]
-    --BDK_ID = "8B 37 3A F9"
-    --SPL_ID = "81 58 DD B0"
-    --EXH_ID = "4D 94 3E 52"
-    --HOD_ID = "00 00 00 00"
-    --FRM_ID = "A4 B3 39 F3"
-    --RRM_ID = "66 B3 DF F7"
-    --LIV_ID = "C5 34 E3 38"
-    PRF_ID = "BD 91 44 C5"
-
-    --writeInteger(bodykit,AOBtoDEC(BDK_ID))
-    --writeInteger(spoiler,AOBtoDEC(SPL_ID))
-    --writeInteger(exhaust,AOBtoDEC(EXH_ID))
-    --writeInteger(hood,AOBtoDEC(HOD_ID))
-    --writeInteger(frontrims,AOBtoDEC(FRM_ID))
-    --writeInteger(rearrims,AOBtoDEC(RRM_ID))
-    --writeInteger(livery,AOBtoDEC(LIV_ID))
-    writeInteger(performance,AOBtoDEC(PRF_ID))
-
-    print "Customization Complete!"
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1300</ID>
-              <Description>"AST_ONE_77_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1300</ID>
+          <Description>"Tier 4 Ai Cars Performance Swap + Tier 6 Livery Swap"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{$lua}
 getLuaEngine().cbShowOnPrint.Checked=false
 getLuaEngine().hide()
 
@@ -1536,3162 +524,625 @@ if address ~= nil then
     address = address + 0x80
     performance = address + 0x60
     writeInteger(performance,AOBtoDEC(PRF_ID))
-end
 
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1320</ID>
-              <Description>"AST_VAN_12_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
+   --2952613532 --ast_van_v12_10_ai_184
+    address = address + 0xD80
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "8E B4 6A 63"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 3 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
     end
-    return OUT
-end
 
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
+    --2940168599 --aud_r8_v10_10_ai_209
+    address = address + 0xD00
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "A7 67 99 8A"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 7 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
     end
-    return result;
-end
 
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
+    --1176546926 --aud_r8_v10_10_test_rainbow
+    address = address + 0xE00
+    local livery = address + 0x50
+    local performance = address + 0x60
+    local LIV_ID = hexByteString(livery)
+    local PRF_ID = hexByteString(performance)
+    LIV_ID = "71 D5 A8 D1"
+    PRF_ID = "A7 67 99 8A"
+    writeInteger(livery,AOBtoDEC(LIV_ID))
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+
+    --346836159 --aud_ur_qua_91_ai_073
+    address = address + 0x300
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "A7 67 99 8A"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 4 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
     end
-    return(tonumber(hex,16))
-end
 
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
+    --3602306200 --bmw_1m_cou_11_ai_104
+    address = address + 0xD80
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "DB AD E4 33"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 7 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
 
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "9C 4E FD AF" --2952613532 --ast_van_v12_10_ai_184
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
+    --3965047869 --bmw_m3_e30_90_ai_080
+    address = address + 0x1200
     local performance = address + 0x60
     local PRF_ID = hexByteString(performance)
     PRF_ID = "88 D5 B8 9A"
     writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 5 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
 
-    address = address + 0x80
-    performance = address + 0x60
+    --3696104006 --bmw_m3_gts_10_ai_170
+    address = address + 0xE00
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "88 D5 B8 9A"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 5 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
+
+    --1925569773 --che_cam_ss_67_ai_017
+    address = address + 0x1D00
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "BD 91 44 C5"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 6 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
+
+    --1413757768 --che_cam_zl1_13_ai_093
+    address = address + 0xE00
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "BD 91 44 C5"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 9 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
+
+    --2053301536 --che_el_cam_70_ai_094
+    address = address + 0x1280
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "BD 91 44 C5"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 8 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
+
+    --495760540 --che_el_cam_70_pp_rival_1
+    address = address + 0x180
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "BD 91 44 C5"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 3 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
+
+    --2240495415 --che_vet_cbn_10_ai_185
+    address = address + 0xD80
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "4B 46 F7 DD"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 7 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
+
+    --2240495415 --dod_cha_srt_08_ai_003
+    address = address + 0x1800
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "BD 91 44 C5"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 6 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
+
+    --1013798201 --dod_cha_rt_71_ai_011
+    address = address + 0x1180
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "BD 91 44 C5"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 6 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
+
+    --3394572208 --for_foc_rs_10_ai_087
+    address = address + 0xD80
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "A9 5F 58 1A"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 5 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
+
+    --2911404618 --for_gt_stk_06_ai_189
+    address = address + 0x1300
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "7A 5A E0 DB"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 5 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
+
+    --28547989 --for_mus_302_69_ai_103
+    address = address + 0xE80
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "BD 91 44 C5"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 4 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
+
+    --3045319024 --for_mus_bos_12_ai_082
+    address = address + 0xD80
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "DB AD E4 33"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 5 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
+
+    --1133916393 --for_mus_rtr_12_ai_097
+    address = address + 0x1180
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "DB AD E4 33"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 5 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
+
+    --570367103 --for_rtr_x_69_ai_249
+    address = address + 0x980
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "BD 91 44 C5"
     writeInteger(performance,AOBtoDEC(PRF_ID))
 
-    address = address + 0x80
-    performance = address + 0x60
-    writeInteger(performance,AOBtoDEC(PRF_ID))
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1321</ID>
-              <Description>"AUD_R8_V10_10_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "97 69 3F AF" --2940168599 --aud_r8_v10_10_ai_209
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "A7 67 99 8A"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 7 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1369</ID>
-              <Description>"AUD_R8_V10_10_TEST_RAINBOW_PRF+LIVERY_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "6E AE 20 46" --1176546926 --aud_r8_v10_10_test_rainbow
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local bodykit = address + 0x18
-   local livery = address + 0x50
-   local performance = address + 0x60
-   --local BDK_ID = hexByteString(bodykit)
-   local LIV_ID = hexByteString(livery)
-   local PRF_ID = hexByteString(performance)
-   BDK_ID = "A7 67 99 8A"
-   LIV_ID = "71 D5 A8 D1"
-   PRF_ID = "A7 67 99 8A"
-   writeInteger(livery,AOBtoDEC(LIV_ID))
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1322</ID>
-              <Description>"AUD_UR_QUA_91_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "BF 4C AC 14" --346836159 --aud_ur_qua_91_ai_073
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "A7 67 99 8A"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 4 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1323</ID>
-              <Description>"BMW_1M_COU_11_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "98 D4 B6 D6" --3602306200 --bmw_1m_cou_11_ai_104
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "88 D5 B8 9A"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 7 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1324</ID>
-              <Description>"BMW_M3_E30_90_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "3D D4 55 EC" --3965047869 --bmw_m3_e30_90_ai_080
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "88 D5 B8 9A"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 5 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1325</ID>
-              <Description>"BMW_M3_GTS_10_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "46 12 4E DC" --3696104006 --bmw_m3_gts_10_ai_170
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "88 D5 B8 9A"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 5 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1326</ID>
-              <Description>"CHE_CAM_SS_67_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "ED DC C5 72" --1925569773 --che_cam_ss_67_ai_017
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "BD 91 44 C5"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 6 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1327</ID>
-              <Description>"CHE_CAM_ZL1_13_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "48 3B 44 54" --1413757768 --che_cam_zl1_13_ai_093
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "BD 91 44 C5"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 9 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1328</ID>
-              <Description>"CHE_EL_CAM_70_AI_PERF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "20 E5 62 7A" --2053301536 --che_el_cam_70_ai_094
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "BD 91 44 C5"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 8 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1330</ID>
-              <Description>"CHE_VET_CBN_10_AI_PERF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "37 3F 8B 85" --2240495415 --che_vet_cbn_10_ai_185
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "4B 46 F7 DD"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 7 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1329</ID>
-              <Description>"DOD_CHA_SRT_08_AI_PERF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "34 D4 8E 1A" --2240495415 --dod_cha_srt_08_ai_003
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "BD 91 44 C5"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 6 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1331</ID>
-              <Description>"DOD_CHA_RT_71_AI_PERF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "39 55 6D 3C" --1013798201 --dod_cha_rt_71_ai_011
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "BD 91 44 C5"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 6 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1332</ID>
-              <Description>"FOR_FOC_RS_10_AI_PERF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "B0 0F 55 CA" --3394572208 --for_foc_rs_10_ai_087
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "88 27 04 36"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 5 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1333</ID>
-              <Description>"FOR_GT_STK_06_AI_PERF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "4A 82 88 AD" --2911404618 --for_gt_stk_06_ai_189
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "BD 91 44 C5"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 5 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1334</ID>
-              <Description>"FOR_MUS_302_69_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "95 9B B3 01" --28547989 --for_mus_302_69_ai_103
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "BD 91 44 C5"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 4 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1335</ID>
-              <Description>"FOR_MUS_BOS_12_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "70 E1 83 B5" --3045319024 --for_mus_bos_12_ai_082
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "BD 91 44 C5"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 5 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1336</ID>
-              <Description>"FOR_MUS_RTR_12_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "E9 30 96 43" --1133916393 --for_mus_rtr_12_ai_097
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "BD 91 44 C5"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 5 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1337</ID>
-              <Description>"FOR_RTR_X_69_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "7F 1C FF 21" --570367103 --for_rtr_x_69_ai_249
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "BD 91 44 C5"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1301</ID>
-              <Description>"LAM_AVE_700_12_PP_RUN_AI_LIVERY_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "54 17 FD 7D" --2113738580 --lam_ave_700_12_ai_264
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
+    --2113738580 --lam_ave_700_12_ai_264
+    address = address + 0x1B00
     local performance = address + 0x60
     local PRF_ID = hexByteString(performance)
     PRF_ID = "89 3F 57 91"
     writeInteger(performance,AOBtoDEC(PRF_ID))
 
+    --2196261666 --lam_ave_700_12_pp_run
     address = address + 0x80
     local livery = address + 0x50
     local LIV_ID = hexByteString(livery)
     LIV_ID = "47 09 0D 8F"
     writeInteger(livery,AOBtoDEC(LIV_ID))
-end
 
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1338</ID>
-              <Description>"LAM_GAL_VB_10_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "F0 78 E0 EB" --3957356784 --lam_gal_vb_10_ai_028
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "89 3F 57 91"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 7 do
+    --3957356784 --lam_gal_vb_10_ai_028
+    address = address + 0x1580
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "9A 98 BE 63"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 7 do
          address = address + 0x80
          performance = address + 0x60
          writeInteger(performance,AOBtoDEC(PRF_ID))
          n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1339</ID>
-              <Description>"LAM_MIU_SV_71_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
     end
-    return OUT
-end
 
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "56 5F EC 9B" --2615959382 --lam_miu_sv_71_ai_124
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "89 3F 57 91"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 5 do
+    --2615959382 --lam_miu_sv_71_ai_124
+    address = address + 0x1180
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "16 FA DF 4B"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 5 do
          address = address + 0x80
          performance = address + 0x60
          writeInteger(performance,AOBtoDEC(PRF_ID))
          n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1340</ID>
-              <Description>"LAM_MUR_SV_10_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
     end
-    return OUT
-end
 
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "A4 B3 D7 B7" --3084366756 --lam_mur_sv_10_ai_253
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
+    --3084366756 --lam_mur_sv_10_ai_253
+    address = address + 0xD80
     local performance = address + 0x60
     local PRF_ID = hexByteString(performance)
     PRF_ID = "6F BF 82 18"
     writeInteger(performance,AOBtoDEC(PRF_ID))
 
+    --1712834822 --lam_mur_sv_10_ai_262
     address = address + 0x80
     performance = address + 0x60
     writeInteger(performance,AOBtoDEC(PRF_ID))
-end
 
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1341</ID>
-              <Description>"LAM_SES_ELE_11_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "4C 4B D3 23" --601049932 --lam_ses_ele_11_ai_261
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
+    --601049932 --lam_ses_ele_11_ai_261
+    address = address + 0xD80
     local performance = address + 0x60
     local PRF_ID = hexByteString(performance)
     PRF_ID = "16 FA DF 4B"
     writeInteger(performance,AOBtoDEC(PRF_ID))
-end
 
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1342</ID>
-              <Description>"LOT_EVO_STK_10_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "1C 71 F1 1C" --485585180 --lot_evo_stk_10_ai_032
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "74 C0 91 1F"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 7 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1343</ID>
-              <Description>"LOT_EXI_260_10_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "C7 5F 49 BE" --3192479687 --lot_exi_260_10_ai_072
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "74 C0 91 1F"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 7 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1344</ID>
-              <Description>"MAZ_MX5_RHT_09_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "D1 4F B0 CC" --3434106833 --maz_mx5_rht_09_ai_013
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "74 C0 91 1F"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 7 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1345</ID>
-              <Description>"MAZ_RX7_RZ_98_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "E4 F4 A9 DB" --3685348580 --maz_rx7_rz_98_ai_008
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "74 C0 91 1F"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 5 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1297</ID>
-              <Description>"MCL_F1_STK_94_PP_STOCK_1_LIVERY_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-local currentCar = "FB E1 BC B7" --1844033689 --mcl_f1_stk_94_pp_stock_1
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-    local bodykit = address + 0x18
-    local spoiler = address + 0x28
-    local exhaust = address + 0x30
-    local hood = address + 0x38
-    local frontrims = address + 0x40
-    local rearrims = address + 0x48
-    local livery = address + 0x50
+    --485585180 --lot_evo_stk_10_ai_032
+    address = address + 0x1280
     local performance = address + 0x60
-
-    --Variable Declaration
-    local BDK_ID = hexByteString(bodykit)
-    local SPL_ID = hexByteString(spoiler)
-    local EXH_ID = hexByteString(exhaust)
-    local HOD_ID = hexByteString(hood)
-    local FRM_ID = hexByteString(frontrims)
-    local RRM_ID = hexByteString(rearrims)
-    local LIV_ID = hexByteString(livery)
     local PRF_ID = hexByteString(performance)
+    PRF_ID = "16 FA DF 4B"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 7 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
 
-    --Custom Values [Comment if not set]
-    --BDK_ID = "C6 31 5B 52"
-    --SPL_ID = "48 9B 36 65"
-    --EXH_ID = "00 00 00 00"
-    --HOD_ID = "00 00 00 00"
-    --FRM_ID = "C9 5F C0 DE"
-    --RRM_ID = "8B A0 6A E3"
+    --3192479687 --lot_exi_260_10_ai_072
+    address = address + 0x1180
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "F0 96 0C EE"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 7 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
+
+    --3434106833 --maz_mx5_rht_09_ai_013
+    address = address + 0x1200
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "74 C0 91 1F"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 7 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
+
+    --3685348580 --maz_rx7_rz_98_ai_008
+    address = address + 0x1180
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "74 C0 91 1F"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 5 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
+
+    --1844033689 --mcl_f1_stk_94_pp_stock_1
+    address = address + 0x1300
+    local livery = address + 0x50
+    local LIV_ID = hexByteString(livery)
     LIV_ID = "00 C4 67 57"
-    --PRF_ID = "74 C0 91 1F"
-
-    --writeInteger(bodykit,AOBtoDEC(BDK_ID))
-    --writeInteger(spoiler,AOBtoDEC(SPL_ID))
-    --writeInteger(exhaust,AOBtoDEC(EXH_ID))
-    --writeInteger(hood,AOBtoDEC(HOD_ID))
-    --writeInteger(frontrims,AOBtoDEC(FRM_ID))
-    --writeInteger(rearrims,AOBtoDEC(RRM_ID))
     writeInteger(livery,AOBtoDEC(LIV_ID))
-    --writeInteger(performance,AOBtoDEC(PRF_ID))
-end
 
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1346</ID>
-              <Description>"MCL_MP4_12C_12_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "54 F5 2D 7D" --2100163924 --mcl_mp4_12c_12_ai_009
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "E0 65 D2 DC"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 6 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1347</ID>
-              <Description>"MER_SLS_AMG_10_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "CD 75 CB 8A" --2328589773 --mer_sls_amg_10_ai_190
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "88 D5 B8 9A"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 3 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1348</ID>
-              <Description>"MIT_EVO_X_08_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "CD 75 CB 8A" --3951888656 --mit_evo_x_08_ai_014
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "88 D5 B8 9A"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 6 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1349</ID>
-              <Description>"NIS_240_ZG_71_AI+PP_RARE_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local currentCar = "DB 61 70 77" --2003853787 --nis_240_zg_71_ai_086
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "F0 96 0C EE"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 5 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-   address = address + 0x100
-   bodykit = address + 0x18
-   hood = address + 0x38
-   livery = address + 0x50
-   BDK_ID = hexByteString(bodykit)
-   HOD_ID = hexByteString(hood)
-   LIV_ID = hexByteString(livery)
-   BDK_ID = "9A 9A 29 EB"
-   HOD_ID = "83 87 30 49"
-   LIV_ID = "60 7E 49 BA"
-
-   writeInteger(bodykit,AOBtoDEC(BDK_ID))
-   writeInteger(hood,AOBtoDEC(HOD_ID))
-   writeInteger(livery,AOBtoDEC(LIV_ID))
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>796</ID>
-              <Description>"NIS_370_Z_09_AI+MILA+NIKKI_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-local currentCar = "53 B5 49 3D" --1028240723 --nis_370_z_09_ai_114
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "74 C0 91 1F"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 6 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-   address = address + 0x100
-   performance = address + 0x60
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-
-   address = address + 0x80
-   performance = address + 0x60
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1350</ID>
-              <Description>"NIS_GTR_R32_91_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-local currentCar = "D2 BE 15 8E" --2383789778 --nis_gtr_r32_91_ai_030
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "65 48 91 7A"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 7 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1351</ID>
-              <Description>"NIS_GTR_STK_73_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-local currentCar = "D7 85 D7 92" --2463598039 --nis_gtr_stk_73_ai_089
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "65 48 91 7A"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 4 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1352</ID>
-              <Description>"NIS_GTR_V_10_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-local currentCar = "B1 7E 49 AE" --2924052145 --nis_gtr_v_10_ai_018
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "65 48 91 7A"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 10 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1353</ID>
-              <Description>"NIS_S14_A_97_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-local currentCar = "CD CB C5 A7" --2814757837 --nis_s14_a_97_ai_001
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "65 48 91 7A"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 7 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1354</ID>
-              <Description>"PAG_HUA_STK_11_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-local currentCar = "64 71 3D 10" --272462180 --pag_hua_stk_11_ai_260
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "88 DB C6 6B"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1355</ID>
-              <Description>"PAG_ZON_CIN_10_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-local currentCar = "F2 6F 25 BC" --3156570098 --pag_zon_cin_10_ai_256
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "A0 33 70 A4"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 4 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1356</ID>
-              <Description>"PON_FIR_STK_78_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-local currentCar = "5E FD 52 DD" --3713203550 --pon_fir_stk_78_ai_010
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-   local performance = address + 0x60
-   local PRF_ID = hexByteString(performance)
-   PRF_ID = "8E B4 6A 63"
-   writeInteger(performance,AOBtoDEC(PRF_ID))
-   n = 1
-   while n &lt; 6 do
-         address = address + 0x80
-         performance = address + 0x60
-         writeInteger(performance,AOBtoDEC(PRF_ID))
-         n = n + 1
-   end
-end
-
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1298</ID>
-              <Description>"POR_918_RSR_11_PP_RUN+AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-local currentCar = "10 3D 30 75" --1966095632 --por_918_rsr_11_ai_255
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
-    local livery = address + 0x50
+    --2100163924 --mcl_mp4_12c_12_ai_009
+    address = address + 0xD00
     local performance = address + 0x60
-
-    local LIV_ID = hexByteString(livery)
     local PRF_ID = hexByteString(performance)
+    PRF_ID = "B4 4B 99 E1"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 6 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
 
-    PRF_ID = "88 27 04 36"
+    --2328589773 --mer_sls_amg_10_ai_190
+    address = address + 0xF00
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "88 D5 B8 9A"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 3 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
 
+    --3367604003 --mer_sls_amg_10_rival
+    address = address + 0x180
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "88 D5 B8 9A"
     writeInteger(performance,AOBtoDEC(PRF_ID))
 
+    --3951888656 --mit_evo_x_08_ai_014
+    address = address + 0xD00
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "88 D5 B8 9A"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 6 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
+
+    --2003853787 --nis_240_zg_71_ai_086
+    address = address + 0x1280
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "F0 96 0C EE"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 5 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
+
+    --4150176875 --nis_240_zg_71_pp_rare_1
+    address = address + 0x100
+    bodykit = address + 0x18
+    hood = address + 0x38
+    livery = address + 0x50
+    BDK_ID = hexByteString(bodykit)
+    HOD_ID = hexByteString(hood)
+    LIV_ID = hexByteString(livery)
+    BDK_ID = "9A 9A 29 EB"
+    HOD_ID = "83 87 30 49"
+    LIV_ID = "60 7E 49 BA"
+    writeInteger(bodykit,AOBtoDEC(BDK_ID))
+    writeInteger(hood,AOBtoDEC(HOD_ID))
+    writeInteger(livery,AOBtoDEC(LIV_ID))
+
+    --1028240723 --nis_370_z_09_ai_114
+    address = address + 0xE80
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "74 C0 91 1F"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 6 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
+
+    --4225104048 --nis_370_z_09_pp_rival_1
+    address = address + 0x100
+    performance = address + 0x60
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+
+    --2151677351 --nis_370_z_09_pp_rival_2
     address = address + 0x80
     performance = address + 0x60
     writeInteger(performance,AOBtoDEC(PRF_ID))
 
+    --2383789778 --nis_gtr_r32_91_ai_030
+    address = address + 0x1180
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "DB AD E4 33"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 7 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
+
+    --2463598039 --nis_gtr_stk_73_ai_089
+    address = address + 0x1D80
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "8E B4 6A 63"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 4 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
+
+    --2924052145 --nis_gtr_v_10_ai_018
+    address = address + 0xE80
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "A9 5F 58 1A"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 10 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
+
+    --2814757837 --nis_s14_a_97_ai_001
+    address = address + 0x1200
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "8E B4 6A 63"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 7 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
+
+    --272462180 --pag_hua_stk_11_ai_260
+    address = address + 0x1200
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "88 DB C6 6B"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+
+    --3156570098 --pag_zon_cin_10_ai_256
+    address = address + 0xE00
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "A0 33 70 A4"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 4 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
+
+    --3713203550 --pon_fir_stk_78_ai_010
+    address = address + 0xD80
+    local performance = address + 0x60
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "8E B4 6A 63"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+    n = 1
+    while n &lt; 6 do
+         address = address + 0x80
+         performance = address + 0x60
+         writeInteger(performance,AOBtoDEC(PRF_ID))
+         n = n + 1
+    end
+
+    --1966095632 --por_918_rsr_11_ai_255
+    address = address + 0xF00
+    local livery = address + 0x50
+    local performance = address + 0x60
+    local LIV_ID = hexByteString(livery)
+    local PRF_ID = hexByteString(performance)
+    PRF_ID = "88 27 04 36"
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+
+    --4227505015 --por_918_rsr_11_ai_265
+    address = address + 0x80
+    performance = address + 0x60
+    writeInteger(performance,AOBtoDEC(PRF_ID))
+
+    --2235038457 --por_918_rsr_11_pp_rare_1
     address = address + 0x80
     livery = address + 0x50
     LIV_ID = "C7 CE CB 5D"
     writeInteger(livery,AOBtoDEC(LIV_ID))
 
+    --893260034 --por_918_rsr_11_pp_run
     address = address + 0x80
     livery = address + 0x50
     LIV_ID = "00 51 21 98"
     writeInteger(livery,AOBtoDEC(LIV_ID))
-end
 
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1357</ID>
-              <Description>"POR_991_S_12_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-local currentCar = "45 72 F2 02" --49443397 --por_991_s_12_ai_183
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
+    --49443397 --por_991_s_12_ai_183
+    address = address + 0xD00
     local performance = address + 0x60
     local PRF_ID = hexByteString(performance)
-    PRF_ID = "88 27 04 36"
+    PRF_ID = "8E B4 6A 63"
     writeInteger(performance,AOBtoDEC(PRF_ID))
     n = 1
     while n &lt; 3 do
@@ -4700,70 +1151,12 @@ if address ~= nil then
           writeInteger(performance, AOBtoDEC(PRF_ID))
           n = n + 1
     end
-end
 
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1358</ID>
-              <Description>"POR_993_GT2_96_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-local currentCar = "E2 A1 B0 4C" --1286644194 --por_993_gt2_96_ai_186
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
+    --1286644194 --por_993_gt2_96_ai_186
+    address = address + 0x1400
     local performance = address + 0x60
     local PRF_ID = hexByteString(performance)
-    PRF_ID = "88 27 04 36"
+    PRF_ID = "74 C0 91 1F"
     writeInteger(performance,AOBtoDEC(PRF_ID))
     n = 1
     while n &lt; 4 do
@@ -4772,70 +1165,12 @@ if address ~= nil then
           writeInteger(performance, AOBtoDEC(PRF_ID))
           n = n + 1
     end
-end
 
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1359</ID>
-              <Description>"POR_GT3_RS_10_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-local currentCar = "C9 B5 D5 A7" --2815800777 --por_gt3_rs_10_ai_192
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
+    --2815800777 --por_gt3_rs_10_ai_192
+    address = address + 0x1700
     local performance = address + 0x60
     local PRF_ID = hexByteString(performance)
-    PRF_ID = "88 27 04 36"
+    PRF_ID = "74 C0 91 1F"
     writeInteger(performance,AOBtoDEC(PRF_ID))
     n = 1
     while n &lt; 4 do
@@ -4844,70 +1179,12 @@ if address ~= nil then
           writeInteger(performance, AOBtoDEC(PRF_ID))
           n = n + 1
     end
-end
 
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1360</ID>
-              <Description>"REN_MEG_RS_10_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-local currentCar = "30 07 28 9F" --2670200624 --ren_meg_rs_10_ai_006
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
+    --2670200624 --ren_meg_rs_10_ai_006
+    address = address + 0xF00
     local performance = address + 0x60
     local PRF_ID = hexByteString(performance)
-    PRF_ID = "88 27 04 36"
+    PRF_ID = "DB AD E4 33"
     writeInteger(performance,AOBtoDEC(PRF_ID))
     n = 1
     while n &lt; 7 do
@@ -4916,70 +1193,12 @@ if address ~= nil then
           writeInteger(performance, AOBtoDEC(PRF_ID))
           n = n + 1
     end
-end
 
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1361</ID>
-              <Description>"SHE_DAY_COU_65_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-local currentCar = "9A 8F 1A C8" --3357183898 --she_day_cou_65_ai_096
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
+    --3357183898 --she_day_cou_65_ai_096
+    address = address + 0x1200
     local performance = address + 0x60
     local PRF_ID = hexByteString(performance)
-    PRF_ID = "8E B4 6A 63"
+    PRF_ID = "F0 96 0C EE"
     writeInteger(performance,AOBtoDEC(PRF_ID))
     n = 1
     while n &lt; 4 do
@@ -4988,70 +1207,12 @@ if address ~= nil then
           writeInteger(performance, AOBtoDEC(PRF_ID))
           n = n + 1
     end
-end
 
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1362</ID>
-              <Description>"SHE_MUS_SNK_12_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-local currentCar = "69 17 CF A8" --2832144233 --she_mus_snk_12_ai_116
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
+    --2832144233 --she_mus_snk_12_ai_116
+    address = address + 0xE80
     local performance = address + 0x60
     local PRF_ID = hexByteString(performance)
-    PRF_ID = "8E B4 6A 63"
+    PRF_ID = "A9 5F 58 1A"
     writeInteger(performance,AOBtoDEC(PRF_ID))
     n = 1
     while n &lt; 3 do
@@ -5060,70 +1221,12 @@ if address ~= nil then
           writeInteger(performance, AOBtoDEC(PRF_ID))
           n = n + 1
     end
-end
 
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1363</ID>
-              <Description>"SUB_WRX_STI_09_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-local currentCar = "36 8A F9 CA" --3405351478 --sub_wrx_sti_09_ai_007
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
+    --3405351478 --sub_wrx_sti_09_ai_007
+    address = address + 0x1200
     local performance = address + 0x60
     local PRF_ID = hexByteString(performance)
-    PRF_ID = "74 C0 91 1F"
+    PRF_ID = "DB AD E4 33"
     writeInteger(performance,AOBtoDEC(PRF_ID))
     n = 1
     while n &lt; 10 do
@@ -5132,67 +1235,9 @@ if address ~= nil then
           writeInteger(performance, AOBtoDEC(PRF_ID))
           n = n + 1
     end
-end
 
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1364</ID>
-              <Description>"TOY_COR_STK_86_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-local currentCar = "C6 8B 82 AE" --2927791046 --toy_cor_stk_86_ai_004
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
+    --2927791046 --toy_cor_stk_86_ai_004
+    address = address + 0x1300
     local performance = address + 0x60
     local PRF_ID = hexByteString(performance)
     PRF_ID = "74 C0 91 1F"
@@ -5204,67 +1249,9 @@ if address ~= nil then
           writeInteger(performance, AOBtoDEC(PRF_ID))
           n = n + 1
     end
-end
 
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1365</ID>
-              <Description>"TOY_SUP_STK_98_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-local currentCar = "C6 C5 F0 5B" --1542505926 --toy_sup_stk_98_ai_005
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
+    --1542505926 --toy_sup_stk_98_ai_005
+    address = address + 0xE80
     local performance = address + 0x60
     local PRF_ID = hexByteString(performance)
     PRF_ID = "74 C0 91 1F"
@@ -5276,70 +1263,12 @@ if address ~= nil then
           writeInteger(performance, AOBtoDEC(PRF_ID))
           n = n + 1
     end
-end
 
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1366</ID>
-              <Description>"VOL_GTI_MK1_76_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-local currentCar = "0D 4E BA 6D" --1840926221 --vol_gti_mk1_76_ai_002
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
+    --1840926221 --vol_gti_mk1_76_ai_002
+    address = address + 0x5A80
     local performance = address + 0x60
     local PRF_ID = hexByteString(performance)
-    PRF_ID = "65 48 91 7A"
+    PRF_ID = "74 C0 91 1F"
     writeInteger(performance,AOBtoDEC(PRF_ID))
     n = 1
     while n &lt; 7 do
@@ -5348,70 +1277,12 @@ if address ~= nil then
           writeInteger(performance, AOBtoDEC(PRF_ID))
           n = n + 1
     end
-end
 
-[DISABLE]
-
-</AssemblerScript>
-            </CheatEntry>
-            <CheatEntry>
-              <ID>1367</ID>
-              <Description>"VOL_SCI_R_10_AI_PRF_SWAP"</Description>
-              <VariableType>Auto Assembler Script</VariableType>
-              <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-local currentCar = "2D 23 71 3C" --1014047533 --vol_sci_r_10_ai_060
-
-local AOB = "02 00 00 31 56 4F CC 99 "..currentCar.." 56 4F CC 99"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-
-if address ~= nil then
+    --1014047533 --vol_sci_r_10_ai_060
+    address = address + 0xE00
     local performance = address + 0x60
     local PRF_ID = hexByteString(performance)
-    PRF_ID = "65 48 91 7A"
+    PRF_ID = "DB AD E4 33"
     writeInteger(performance,AOBtoDEC(PRF_ID))
     n = 1
     while n &lt; 4 do
@@ -5425,15 +1296,457 @@ end
 [DISABLE]
 
 </AssemblerScript>
-            </CheatEntry>
-          </CheatEntries>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1413</ID>
+          <Description>"Text Swap (ru)"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(text_change,Need For Speed The Run.exe,89 94 24 8C 09 00 00)
+alloc(checkvar,$C)
+alloc(nearMissText,$28)
+alloc(carClassText,$24)
+alloc(suicidalText,$1C)
+alloc(supercarRunText,$38)
+alloc(newmem,$300)
+label(code)
+label(return)
+
+checkvar:
+  dd 0
+  dd 0
+  dd 0
+
+registersymbol(checkvar)
+
+nearMissText:
+  dd 041F041E //ОП
+  dd 04210410 //АС
+  dd 041E041D //НО
+  dd 00200415 //[Е ]
+  dd 04110421 //СБ
+  dd 0418041B //ЛИ
+  dd 04150416 //ЖЕ
+  dd 0418041D //НИ
+  dD 00200415 //[Е ]
+  dd 0 //null value
+
+registersymbol(nearMissText)
+
+carClassText:
+  dd 00750041 //Au
+  dd 00690064 //di
+  dd 0020002C //[, ]
+  dd 0069004E //Ni
+  dd 00730073 //ss
+  dd 006E0061 //an
+  dd 04430020 //[ у]
+  dd 0020002E //[. ]
+  dd 00000036 //[6 ]
+
+registersymbol(carClassText)
+
+suicidalText:
+  dd 04100421 //СА
+  dd 041E041C //МО
+  dd 04110423 //УБ
+  dd 04190418 //ИЙ
+  dd 04100426 //ЦА
+  dd 00210021 //!!
+  dd 00210021 //!!
+
+registersymbol(suicidalText)
+
+supercarRunText:
+  dd 00480054 //TH
+  dd 00200045 //[E ]
+  dd 00550053 //SU
+  dd 00450050 //PE
+  dd 00430052 //RC
+  dd 00520041 //AR
+  dd 00520020 // R
+  dd 004E0055 //UN
+  dd 00520020 // R
+  dd 00570045 //EW
+  dd 0052004F //OR
+  dd 0045004B //KE
+  dd 00000044 //D
+  dd 0 //null value
+
+registersymbol(supercarRunText)
+
+newmem:
+  push eax
+  mov ebx,[ebx]
+  cmp [ebx+10],00210020 //SUICIDAL[ !]!!
+  je suicidal
+  cmp [ebx+C],0422042D //ВЫБОР [ЭТ]АПА
+  je title_check
+  cmp [ebx+10],04220421 //БЛИЗКОЕ [СТ]ОЛКНОВЕНИЕ
+  je near_miss
+  cmp [ebx+14],04220421 //ВСТРЕЧНОЕ [СТ]ОЛКНОВЕНИЕ
+  je oncoming_near_miss
+  cmp [ebx+14],043F0022 //Уровень 4 ["п]рокачанная"
+  je story_car_select
+  cmp [checkvar+8],1
+  je car_swap_var_cmp
+  cmp [ebx+4],041C0416 //НА[ЖМ]ИТЕ
+  je press
+
+car_swap_var_cmp:
+  cmp [checkvar+4],1
+  jne car_swap_check
+
+tier_check:
+  cmp cx,DDD4 //compare needed widget
+  jne car_swap_check
+  cmp [ebx+2A],002E0440 //Класс машины: Любые у[р.]
+  je swap_level2
+  cmp [ebx+34],002E0440 //Класс машины: Любые Audi у[р.]
+  je swap_audi
+
+car_swap_check:
+  mov eax,[ind]
+  cmp eax,[checkvar]
+  je code
+  cmp [ebx+E],002E0440 //Любые у[р.]
+  je swap_level
+  cmp [ebx+18],002E0440 //Любые Audi у[р.]
+  je swap_level_audi
+
+code:
+  pop eax
+  mov ebx,[esp]
+  mov [esp+0000098C],edx
+  jmp return
+
+suicidal:
+  cmp [ebx+14],00210021 //SUICIDAL ![!!]
+  jne code
+  push ecx
+  push edx
+  push esi
+  mov ecx,7  //num of iterations
+  mov edx,0  //index
+  mov esi,4C //offset to needed array
+  jmp mov_text
+
+near_miss:
+  cmp cx,DA14 //compare needed widget
+  jne code
+  push ecx
+  push edx
+  push esi
+  mov ecx,A
+  mov edx,0
+  mov esi,0
+
+mov_text:
+  mov eax,[nearMissText+esi+edx*4]
+  mov [ebx+edx*4],eax
+  inc dl
+  loop mov_text
+  pop esi
+  pop edx
+  pop ecx
+  jmp code
+
+oncoming_near_miss:
+  cmp cx,DA14 //compare needed widget
+  jne code
+  push ecx
+  push edx
+  push esi
+  mov ecx,6
+  mov edx,4
+  mov esi,0
+  add ebx,4 //offset to needed char position
+  jmp mov_text
+
+swap_level_audi:
+  mov [checkvar],eax
+  push ecx
+  push edx
+  push esi
+  mov ecx,9
+  mov edx,0
+  mov esi,28
+  jmp mov_text
+
+swap_audi:
+  push ecx
+  push edx
+  push esi
+  mov ecx,9
+  mov edx,0
+  mov esi,28
+  add ebx,1C
+  jmp mov_text
+
+press:
+  mov [checkvar+8],1
+  cmp [ebx+E],00530020 //НАЖМИТЕ[ S]TART
+  je car_swap_var_cmp
+  push ecx
+  push edx
+  push esi
+  mov ecx,E
+  mov edx,0
+  mov esi,68
+  jmp mov_text
+
+swap_level:
+  mov [ebx+12],00360020
+  mov [checkvar],eax
+  jmp code
+
+swap_level2:
+  mov [ebx+2E],00360020
+  jmp code
+
+story_car_select:
+  mov [ebx+10],00200036
+  jmp code
+
+title_check:
+  cmp cx,DA30 //compare needed widget
+  je mov_var_2
+  cmp cx,DB54 //compare needed widget
+  je mov_var_2
+  dec [checkvar+4]
+  jmp car_swap_check
+
+mov_var_2:
+  mov [checkvar+4],2
+  jmp tier_check
+
+text_change:
+  jmp newmem
+  nop 2
+return:
+registersymbol(text_change)
+
+[DISABLE]
+
+text_change:
+  db 89 94 24 8C 09 00 00
+
+dealloc(text_change)
+dealloc(checkvar)
+dealloc(newmem)
+unregistersymbol(text_change)
+unregistersymbol(checkvar)
+unregistersymbol(newmem)
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1292</ID>
+          <Description>"Junkyard"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(junkyard_event_1_1,Need For Speed The Run.exe,8B 82 68 02 00 00)
+alloc(newmem,$20)
+
+label(code)
+label(return)
+
+newmem:
+  cmp [edx+00000268],48E0DCCC
+  jne code
+  mov [edx+00000268],4620AE6E
+code:
+  mov eax,[edx+00000268]
+  jmp return
+
+junkyard_event_1_1:
+  jmp newmem
+  nop
+return:
+registersymbol(junkyard_event_1_1)
+
+[DISABLE]
+junkyard_event_1_1:
+  db 8B 82 68 02 00 00
+
+unregistersymbol(junkyard_event_1_1)
+dealloc(newmem)
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>1293</ID>
+          <Description>"Junkyard 1.2"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>[ENABLE]
+aobscanmodule(junkyard_event_1_2,Need For Speed The Run.exe,8B 81 E0 00 00 00 C3 CC B8)
+alloc(newmem,$20)
+label(code)
+label(return)
+
+newmem:
+  cmp [ecx+000000E0],48E0DCCC
+  jne code
+  mov [ecx+000000E0],4620AE6E
+
+code:
+  mov eax,[ecx+000000E0]
+  jmp return
+
+junkyard_event_1_2:
+  jmp newmem
+  nop
+return:
+registersymbol(junkyard_event_1_2)
+
+[DISABLE]
+junkyard_event_1_2:
+  db 8B 81 E0 00 00 00
+
+unregistersymbol(junkyard_event_1_2)
+dealloc(newmem)
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>862</ID>
+          <Description>"SanFran"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{$lua}
+getLuaEngine().cbShowOnPrint.Checked=false
+getLuaEngine().hide()
+[ENABLE]
+function SanFran()
+    if readPointer("[[[[[027147B0]+344]+24]+4]+38]+0") ~= nil then
+        local lastCarClassID = getAddress("[[[[[027147B0]+344]+24]+4]+38]+0")
+        local lastCarID = lastCarClassID + 0x4
+        if lastCarClassID ~= nil and readInteger(lastCarClassID) == 2580303702 and readInteger(lastCarID) == 1165774027 then
+            first = lastCarClassID + 0x4
+            second = lastCarClassID + 0xC
+            third = lastCarClassID + 0x14
+            fourth = lastCarClassID + 0x1C
+            fifth = lastCarClassID + 0x24
+
+            writeInteger(first,1732803059)
+            writeInteger(second,4150176875)
+            writeInteger(third,1203603962)
+            writeInteger(fourth,3082609147)
+            writeInteger(fifth,893260034)
+        end
+    end
+end
+
+sf = createTimer(nil)
+timer_onTimer(sf,SanFran)
+timer_setInterval(sf, 1000)
+timer_setEnabled(sf, true)
+
+[DISABLE]
+timer_setEnabled(sf, false)
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>863</ID>
+          <Description>"LasVegas"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{$lua}
+getLuaEngine().cbShowOnPrint.Checked=false
+getLuaEngine().hide()
+[ENABLE]
+function LasVegas()
+    if readPointer("[[[[027147B0]+56C]+64]+A0]+0") ~= nil then
+        local lastCarClassID = getAddress("[[[[027147B0]+56C]+64]+A0]+0")
+        local lastCarID = lastCarClassID + 0x4
+        if lastCarClassID ~= nil and readInteger(lastCarClassID) == 2580303702 and readInteger(lastCarID) == 3662254698 then
+            first = lastCarClassID + 0x4
+            second = lastCarClassID + 0xC
+            third = lastCarClassID + 0x14
+
+            writeInteger(first,3882992039)
+            writeInteger(second,2998207530)
+            writeInteger(third,1293973268)
+        end
+    end
+end
+
+lv = createTimer(nil)
+timer_onTimer(lv,LasVegas)
+timer_setInterval(lv, 1000)
+timer_setEnabled(lv, true)
+
+[DISABLE]
+timer_setEnabled(lv, false)
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>864</ID>
+          <Description>"Chicago"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{$lua}
+getLuaEngine().cbShowOnPrint.Checked=false
+getLuaEngine().hide()
+[ENABLE]
+function Chicago()
+if readPointer("[[[[027147B0]+41C]+5C]+A0]+0") ~= nil then
+   local lastCarClassID = getAddress("[[[[027147B0]+41C]+5C]+A0]+0")
+   local lastCarID = lastCarClassID + 0x4
+        if lastCarClassID ~= nil and readInteger(lastCarClassID) == 2580303702 and readInteger(lastCarID) == 470076578 then
+            first = lastCarClassID + 0x4
+            second = lastCarClassID + 0xC
+            third = lastCarClassID + 0x14
+
+            writeInteger(first,1279882972)
+            writeInteger(second,501327745)
+            writeInteger(third,1078212109)
+        end
+    end
+end
+
+cc = createTimer(nil)
+timer_onTimer(cc,Chicago)
+timer_setInterval(cc, 1000)
+timer_setEnabled(cc, true)
+
+[DISABLE]
+timer_setEnabled(cc, false)
+</AssemblerScript>
+        </CheatEntry>
+        <CheatEntry>
+          <ID>865</ID>
+          <Description>"Uri"</Description>
+          <VariableType>Auto Assembler Script</VariableType>
+          <AssemblerScript>{$lua}
+getLuaEngine().cbShowOnPrint.Checked=false
+getLuaEngine().hide()
+[ENABLE]
+function Uri()
+    if readPointer("[[[[[027147B0]+7A4]+24]+8]+A0]+0") ~= nil then
+        local lastCarClassID = getAddress("[[[[[027147B0]+7A4]+24]+8]+A0]+0")
+        local lastCarID = lastCarClassID + 0x4
+        if lastCarClassID ~= nil and readInteger(lastCarClassID) == 2580303702 and readInteger(lastCarID) == 3362615761 then
+            first = lastCarClassID + 0x4
+            second = lastCarClassID + 0xC
+            third = lastCarClassID + 0x14
+
+            writeInteger(first,2235038457)
+            writeInteger(second,2149624056)
+            writeInteger(third,2196261666)
+        end
+    end
+end
+
+ur = createTimer(nil)
+timer_onTimer(ur,Uri)
+timer_setInterval(ur, 1000)
+timer_setEnabled(ur, true)
+
+[DISABLE]
+timer_setEnabled(ur, false)
+</AssemblerScript>
         </CheatEntry>
         <CheatEntry>
           <ID>799</ID>
           <Description>"ID_PLAYLIST_CARRESTICTION_OPEN"</Description>
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
-alloc(newmem,2048)
+alloc(newmem,$30)
 label(returnhere)
 label(originalcode)
 label(exit)
@@ -5465,84 +1778,16 @@ push 00
 </AssemblerScript>
         </CheatEntry>
         <CheatEntry>
-          <ID>1109</ID>
-          <Description>"THE SUPERCAR RUN STRING SWAP"</Description>
-          <VariableType>Auto Assembler Script</VariableType>
-          <AssemblerScript>{$lua}
-getLuaEngine().cbShowOnPrint.Checked=false
-getLuaEngine().hide()
-
-function DEC_HEX(IN)
-    local B,K,OUT,I,D=16,"0123456789ABCDEF","",0
-    while IN&gt;0 do
-        I=I+1
-        IN,D=math.floor(IN/B),math.mod(IN,B)+1
-        OUT=string.sub(K,D,D)..OUT
-    end
-    return OUT
-end
-
-function Split(s, delimiter)
-    result = {};
-    for match in (s..delimiter):gmatch("(.-)"..delimiter) do
-        table.insert(result, match);
-    end
-    return result;
-end
-
-function AOBtoDEC(str)
-    split_string = Split(str, " ")
-    local hex = ""
-    for i=1,#split_string do
-        hex = hex .. split_string[#split_string+1-i]
-    end
-    return(tonumber(hex,16))
-end
-
-function hexByteString(addressdec)
-    local decByteString = table.concat(readBytes(addressdec,4,true),' ')
-    local hexByteS = decByteString:gsub('%S+',function (c) return string.format('%02X',c) end)
-    return(hexByteS)
-end
-
-local addressStart = "F0000000" --First Vehicle of Customization Template
-local addressEnd = "FFFFFFFF" --Last Vehicle of Customization Template
-
-[ENABLE]
-
-local AOB = "4D 41 4C 00 52 45 41 4C 49 53 54 49 43 00 53 45 4C 45 43 54 20 41 20 50 4C 41 59 4C 49 53 54 00"
-local MyMemscan = createMemScan()
-memscan_returnOnlyOneResult(MyMemscan, true)
-memscan_firstScan(MyMemscan,soExactValue,vtByteArray,0,AOB,"",addressStart,addressEnd,"*X*W*C",0,"",true,true,false,false)
-memscan_waitTillDone(MyMemscan)
-local address = memscan_getOnlyResult(MyMemscan) --Returns the address in integer format
-if address ~= nil then
-    local string_end = {0x00}
-    writeString(address+0x20,"THE SUPERCAR RUN")
-    writeBytes(address+0x30,string_end)
-    print "String Swap Complete Complete!"
-else
-    print "String Swap Failed!"
-end
-
-
-[DISABLE]
-
-</AssemblerScript>
-        </CheatEntry>
-        <CheatEntry>
           <ID>1318</ID>
           <Description>"UNLOCK_ALL_VEHICLES"</Description>
           <VariableType>Auto Assembler Script</VariableType>
           <AssemblerScript>[ENABLE]
-aobscanmodule(unlock_all_cars,Need For Speed The Run.exe,38 58 1B 74 11) // should be unique
-alloc(newmem,100)
+aobscanmodule(unlock_all_cars,Need For Speed The Run.exe,38 58 1B 74 11)
+alloc(newmem,$20)
 label(code)
 label(return)
 
 newmem:
-  cmp [eax+18],00000000
-  jne code
   mov [eax+18],00010001
 
 code:
@@ -5561,9 +1806,11 @@ unlock_all_cars:
 
 unregistersymbol(unlock_all_cars)
 dealloc(newmem)
-	       </AssemblerScript>
-      	    </CheatEntry>
-         </CheatEntries>
-      </CheatEntry>
-   </CheatEntries>
+	       
+</AssemblerScript>
+        </CheatEntry>
+      </CheatEntries>
+    </CheatEntry>
+  </CheatEntries>
+  <UserdefinedSymbols/>
 </CheatTable>
